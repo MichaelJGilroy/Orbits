@@ -2,47 +2,47 @@
 using System.Collections;
 
 public class PlayerController : MonoBehaviour {
-    Rigidbody2D rb;
+
     public Transform target;
-    private float atan2;
-    Vector3 velo;
-    private int travelSpeed;
-    bool rotateToTarget;
-    bool travelToTarget;
-    Vector3 target2;
+    bool menuMode = true;
+
+    PlayButton play;
 
     void Start()
     {
         GetComponent<Rigidbody2D>().velocity = new Vector3(0.0f, 3.0f, 0.0f);
-        Rigidbody2D rb = GetComponent<Rigidbody2D>();
-        Vector3 velo = rb.velocity;
+
+        play = GameObject.Find("Canvas").GetComponentInChildren<PlayButton>();
     }
     
     
     void Update ()
     {
-        if (Input.GetMouseButton(0))
+        // when mouse is pressed and not in menu, get the distance & direction of click from rocket
+        if (Input.GetMouseButton(0) && !menuMode)
         {
             Vector2 mouseClick = new Vector2(Input.mousePosition.x - 485.0f, Input.mousePosition.y - 165.0f) * -1;
-            int speed = (int)(Input.mousePosition.x + Input.mousePosition.y)^2;
-            //GetComponent<Rigidbody2D>().LookAt();
-            print(mouseClick);
-            print(speed);
+
             GetComponent<Rigidbody2D>().AddForce(mouseClick);
 
+            // get direction of click and set rocket direction away from it
             Vector3 diff = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
             diff.Normalize();
 
+            // a^2 + b^2 = c^2 for distance
             float rot_z = Mathf.Atan2(-diff.y, -diff.x) * Mathf.Rad2Deg;
             transform.rotation = Quaternion.Euler(0f, 0f, rot_z - 90);
         }
+        // when mouse not pressed, calculate where rocket should be pointing
         else
         {
             Vector3 moveDirection = gameObject.transform.position;
             float angle = Mathf.Atan2(moveDirection.y, moveDirection.x) * Mathf.Rad2Deg;
             transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
-
-            Vector2 direction = (target.transform.position - GetComponent<Rigidbody2D>().transform.position).normalized;
+            if (play.clicked)
+            {
+                menuMode = false;
+            }
         }
     }
 }

@@ -75,7 +75,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\CameraBehavior.cs" />
+    <Compile Include="Assets\SettingsButton.cs" />
+    <Compile Include="Assets\ShopButton.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Standard Assets\Cameras\CameraGuidelines.txt" />
