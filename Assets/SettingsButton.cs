@@ -22,5 +22,6 @@ public class SettingsButton : MonoBehaviour {
     void OnMouseUp()
     {
         transform.localScale *= 1.111F;
+        clicked = true;
     }
 }

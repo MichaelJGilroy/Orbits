@@ -10,7 +10,7 @@ public class MenuManager : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        play = GameObject.Find("Canvas").GetComponentInChildren<PlayButton>();
+        play = GameObject.Find("play").GetComponent<PlayButton>();
     }
 
     

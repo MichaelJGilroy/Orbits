@@ -10,7 +10,7 @@ public class CameraBehavior : MonoBehaviour {
     // Use this for initialization
     void Start () {
         //mm = GameObject.Find("MainCamera").GetComponent<MenuManager>();
-        play = GameObject.Find("Canvas").GetComponentInChildren<PlayButton>();
+        play = GameObject.Find("play").GetComponent<PlayButton>();
     }
 
 
@@ -19,14 +19,14 @@ public class CameraBehavior : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
-        // if play button unclicked, camera is not
+        // if play button unclicked, camera is not locked on rocket
         if (!play.clicked)
         {
             
         }
-        // if it is clicked, use the camera focused on the rocket
         else
         {
+            // lock camera to rocket
             Vector3 pos = player.transform.position;
             pos.z += cameraHeight;
             transform.position = pos;
